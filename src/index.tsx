@@ -22,7 +22,7 @@ if ("serviceWorker" in navigator) {
             .then(() => {
                 console.log("SW has be registered");
             })
-            .then(() => {
+            .catch(() => {
                 console.log("SW failed");
             });
     });
