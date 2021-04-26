@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 
 module.exports = {
@@ -46,17 +45,6 @@ module.exports = {
         extensions: [".tsx", ".ts", ".js"],
     },
     plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: "./public",
-                    to: "./",
-                    globOptions: {
-                        ignore: ["**/index.html"],
-                    },
-                },
-            ],
-        }),
         new HtmlWebpackPlugin({
             template: "public/index.html",
         }),
@@ -75,7 +63,7 @@ module.exports = {
     ],
     devtool: "inline-source-map",
     devServer: {
-        contentBase: path.join(__dirname, "build"),
+        contentBase: path.join(__dirname, "public"),
         historyApiFallback: true,
         port: 4000,
         hot: true,
