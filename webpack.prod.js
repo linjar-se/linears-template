@@ -2,7 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
@@ -81,7 +80,6 @@ module.exports = {
         new ESLintPlugin({
             extensions: ["js", "jsx", "ts", "tsx"],
         }),
-        new CleanWebpackPlugin(),
         new WorkboxPlugin.InjectManifest({
             swSrc: "./src/service-worker.js",
         }),
@@ -92,4 +90,17 @@ module.exports = {
             fileWhitelist: [/\.(woff2?|eot|ttf|otf)(\?.*)?$/i],
         }),
     ],
+    optimization: {
+        moduleIds: "deterministic",
+        runtimeChunk: "single",
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
+        },
+    },
 };
