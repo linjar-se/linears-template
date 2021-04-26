@@ -15,6 +15,7 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash].js",
         publicPath: "/",
+        clean: true,
     },
     stats: {
         errorDetails: true,
